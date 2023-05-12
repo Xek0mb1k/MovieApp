@@ -1,7 +1,7 @@
 package com.example.movieapp.domain
 
 interface MovieRepository {
-    fun getSearchedMovieData(request: String): SearchedMovieData
-    fun getMovie(imdbID: String): Movie
+    suspend fun getSearchedMovieData(request: String, type: String): SearchedMovieData
+    suspend fun getMovie(imdbID: String): Movie
 
 }
