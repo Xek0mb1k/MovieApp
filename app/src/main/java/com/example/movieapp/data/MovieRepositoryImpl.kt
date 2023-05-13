@@ -6,7 +6,7 @@ import com.example.movieapp.domain.SearchedMovieData
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
-class MovieRepositoryImpl : MovieRepository {
+class MovieRepositoryImpl: MovieRepository {
 
     private val apiKey = "7c296a04"
 
