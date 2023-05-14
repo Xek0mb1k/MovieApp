@@ -1,3 +1,11 @@
 <resources>
     <string name="app_name">MovieApp</string>
+    <string name="title_activity_bookmarks">BookmarksActivity</string>
+    <string name="search">Search</string>
+    <string name="star">star</string>
+    <string name="bookmarks">Bookmarks</string>
+    <string name="poster_image">Poster image</string>
+    <string name="bookmark_button">Bookmark button</string>
+
+
 </resources>
