@@ -107,11 +107,11 @@
 
     <ImageButton
         android:id="@+id/bookmarkButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:src="@drawable/bookmarkDefault"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:src="@drawable/bookmark_default"
         android:background="@drawable/ripple_back"
-        android:layout_margin="16dp"
+
         app:layout_constraintEnd_toEndOf="@+id/posterImageView"
         app:layout_constraintTop_toTopOf="@+id/posterImageView"
         android:contentDescription="@string/bookmark_button" />
