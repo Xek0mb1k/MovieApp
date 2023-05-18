@@ -6,6 +6,7 @@
     <string name="bookmarks">Bookmarks</string>
     <string name="poster_image">Poster image</string>
     <string name="bookmark_button">Bookmark button</string>
+    <string name="return_back">Return back</string>
 
 
 </resources>

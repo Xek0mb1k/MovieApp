@@ -1,11 +1,7 @@
 <resources>
     <!-- Base application theme. -->
-    <style name="Base.Theme.MovieApp" parent="Theme.Material3.DayNight.NoActionBar">
+    <style name="Base.Theme.MovieApp" parent="Theme.MaterialComponents.DayNight.NoActionBar">
         <!-- Customize your light theme here. -->
-        <item name="colorPrimary">@color/white</item>
-        <item name="colorOnPrimary">@color/white</item>
-        <item name="colorSecondary">@color/white</item>
-        <item name="colorOnSecondary">@color/white</item>
 
         <item name="cardBackgroundColor">@color/gray</item>
         <item name="rippleColor">@color/ripple_color_light</item>
