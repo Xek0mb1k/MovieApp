@@ -7,6 +7,11 @@
     <string name="poster_image">Poster image</string>
     <string name="bookmark_button">Bookmark button</string>
     <string name="return_back">Return back</string>
+    <string name="awards">Awards</string>
+    <string name="actors">Actors</string>
+    <string name="director">Director</string>
+    <string name="runtime">Runtime</string>
+    <string name="released">Released</string>
 
 
 </resources>

@@ -7,81 +7,273 @@
     android:background="?attr/backgroundColor"
     tools:context=".MovieDescriptionFragment">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        tools:ignore="UselessParent">
 
-        <ImageView
-            android:id="@+id/imageView"
-
-            android:layout_width="wrap_content"
-            android:layout_height="560dp"
-            android:background="@drawable/poster_background"
-
-            android:scaleType="centerCrop"
-            android:src="@drawable/test_poster"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            android:contentDescription="@string/poster_image" />
-
-        <View
-            android:id="@+id/view"
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="560dp"
-            android:background="@drawable/poster_background"
-            app:layout_constraintEnd_toEndOf="@+id/imageView"
-            app:layout_constraintStart_toStartOf="@+id/imageView"
-            app:layout_constraintTop_toTopOf="parent">
+            android:layout_height="wrap_content">
 
-        </View>
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/guideline"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
 
-        <ImageButton
-            android:layout_width="48dp"
-            android:layout_height="48dp"
-            android:layout_marginStart="15dp"
-            android:layout_marginTop="30dp"
-            android:background="@drawable/ripple_back"
-            android:contentDescription="@string/return_back"
-            android:src="@drawable/back_arrow"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintGuide_begin="128dp" />
 
-        <ImageButton
-            android:layout_width="48dp"
-            android:layout_height="48dp"
-            android:layout_marginTop="30dp"
-            android:layout_marginEnd="15dp"
-            android:background="@drawable/ripple_back"
-            android:contentDescription="@string/bookmark_button"
-            android:src="@drawable/bookmark_default"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            <ImageView
+                android:id="@+id/imageView"
 
-        <TextView
-            android:id="@+id/movieNameTextView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="64dp"
-            android:textColor="@color/black"
-            android:textSize="30sp"
-            android:textStyle="bold"
-            app:layout_constraintBottom_toTopOf="@+id/textView2"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            tools:text="Hitman’s Wife’s Bodyguard" />
+                android:layout_width="wrap_content"
+                android:layout_height="560dp"
+                android:background="@drawable/poster_background"
 
-        <TextView
-            android:id="@+id/textView2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+                android:contentDescription="@string/poster_image"
+                android:scaleType="centerCrop"
+                android:src="@drawable/test_poster"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
-            android:layout_marginBottom="28dp"
-            app:layout_constraintBottom_toBottomOf="@+id/imageView"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            tools:text="Action, Comedy, Crime" />
-    </androidx.constraintlayout.widget.ConstraintLayout>
+            <View
+                android:id="@+id/view"
+                android:layout_width="match_parent"
+                android:layout_height="560dp"
+                android:background="@drawable/poster_background"
+                app:layout_constraintEnd_toEndOf="@+id/imageView"
+                app:layout_constraintStart_toStartOf="@+id/imageView"
+                app:layout_constraintTop_toTopOf="parent">
+
+            </View>
+
+            <ImageButton
+                android:id="@+id/imageButton"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:layout_marginStart="15dp"
+                android:layout_marginTop="30dp"
+                android:background="@drawable/ripple_back"
+                android:contentDescription="@string/return_back"
+                android:src="@drawable/back_arrow"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <ImageButton
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:layout_marginTop="30dp"
+                android:layout_marginEnd="15dp"
+                android:background="@drawable/ripple_back"
+
+                android:contentDescription="@string/bookmark_button"
+                android:src="@drawable/bookmark_icon_selector"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/movieNameTextView"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginBottom="10dp"
+                android:textColor="?attr/iconTint"
+                android:textSize="30sp"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toTopOf="@+id/movieScoreTextView"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                tools:text="Hit man’s Wife’s Bodyguard" />
+
+            <TextView
+                android:id="@+id/movieScoreTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginBottom="10dp"
+                app:layout_constraintBottom_toTopOf="@+id/textView2"
+                app:layout_constraintStart_toStartOf="parent"
+                tools:text="3.5" />
+
+            <ImageView
+                android:id="@+id/scoreStar1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="9dp"
+                android:contentDescription="@string/star"
+                android:src="@drawable/full_star"
+                app:layout_constraintBottom_toBottomOf="@+id/movieScoreTextView"
+                app:layout_constraintStart_toEndOf="@+id/movieScoreTextView"
+                app:layout_constraintTop_toTopOf="@+id/movieScoreTextView" />
+
+            <ImageView
+                android:id="@+id/scoreStar2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="5dp"
+                android:contentDescription="@string/star"
+                android:src="@drawable/full_star"
+                app:layout_constraintBottom_toBottomOf="@+id/scoreStar1"
+                app:layout_constraintStart_toEndOf="@+id/scoreStar1"
+                app:layout_constraintTop_toTopOf="@+id/scoreStar1" />
+
+            <ImageView
+                android:id="@+id/scoreStar3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="5dp"
+                android:contentDescription="@string/star"
+                android:src="@drawable/full_star"
+                app:layout_constraintBottom_toBottomOf="@+id/scoreStar2"
+                app:layout_constraintStart_toEndOf="@+id/scoreStar2"
+                app:layout_constraintTop_toTopOf="@+id/scoreStar2" />
+
+            <ImageView
+                android:id="@+id/scoreStar4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="5dp"
+                android:contentDescription="@string/star"
+                android:src="@drawable/full_star"
+                app:layout_constraintBottom_toBottomOf="@+id/scoreStar3"
+                app:layout_constraintStart_toEndOf="@+id/scoreStar3"
+                app:layout_constraintTop_toTopOf="@+id/scoreStar3" />
+
+            <ImageView
+                android:id="@+id/scoreStar5"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="5dp"
+                android:contentDescription="@string/star"
+                android:src="@drawable/full_star"
+                app:layout_constraintBottom_toBottomOf="@+id/scoreStar4"
+                app:layout_constraintStart_toEndOf="@+id/scoreStar4"
+                app:layout_constraintTop_toTopOf="@+id/scoreStar4" />
+
+            <TextView
+                android:id="@+id/textView2"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginBottom="28dp"
+                app:layout_constraintBottom_toBottomOf="@+id/imageView"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                tools:text="Action, Comedy, Crime" />
+
+            <TextView
+                android:id="@+id/textView3"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/imageView"
+                tools:text="The world's most lethal odd couple - bodyguard Michael Bryce and Darius Kincaid - are back on anoth most lethal odd couple - bodyguard Michael Bryce anan Darius Kincaid" />
+
+            <TextView
+                android:id="@+id/releaseTextTV"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="28dp"
+                android:text="@string/released"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textView3" />
+
+            <TextView
+                android:id="@+id/releaseValueTV"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintStart_toStartOf="@+id/guideline"
+                app:layout_constraintTop_toTopOf="@+id/releaseTextTV"
+                tools:text="05 May 2017" />
+
+            <TextView
+                android:id="@+id/runtimeTextTV"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="10dp"
+                android:text="@string/runtime"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/releaseTextTV" />
+
+            <TextView
+                android:id="@+id/runtimeValueTV"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintStart_toStartOf="@+id/guideline"
+                app:layout_constraintTop_toTopOf="@+id/runtimeTextTV"
+                tools:text="195min" />
+
+            <TextView
+                android:id="@+id/directorTextTV"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="10dp"
+                android:text="@string/director"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/runtimeTextTV" />
+
+            <TextView
+                android:id="@+id/directorValueTV"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintStart_toStartOf="@+id/guideline"
+                app:layout_constraintTop_toTopOf="@+id/directorTextTV"
+                tools:text="James" />
+
+            <TextView
+                android:id="@+id/actorsTextTV"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="10dp"
+                android:text="@string/actors"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/directorTextTV" />
+
+            <TextView
+                android:id="@+id/actorsValueTV"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="16dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="@+id/guideline"
+                app:layout_constraintTop_toTopOf="@+id/actorsTextTV"
+                tools:text="Chris Pratt, Zoe Saldana, Dave Bautista" />
+
+            <TextView
+                android:id="@+id/awardsTextTV"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="10dp"
+                android:text="@string/awards"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/actorsTextTV" />
+
+            <TextView
+                android:id="@+id/awardsValueTV"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="16dp"
+                android:layout_marginBottom="60dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="@+id/guideline"
+                app:layout_constraintTop_toTopOf="@+id/awardsTextTV"
+                tools:text="Nominated for 1 Oscar. 15 wins 60 nominations total" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </ScrollView>
 
 
 </FrameLayout>
