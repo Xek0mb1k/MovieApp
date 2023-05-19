@@ -5,19 +5,20 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import com.example.movieapp.databinding.FragmentSearchBinding
+import com.example.movieapp.databinding.FragmentMovieDescriptionBinding
 
 
-class SearchFragment : Fragment() {
+class MovieDescriptionFragment : Fragment() {
 
-    private var _binding: FragmentSearchBinding? = null
+    private var _binding: FragmentMovieDescriptionBinding? = null
     private val binding get() = _binding!!
 
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
+        inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View {
-        _binding = FragmentSearchBinding.inflate(inflater, container, false)
+        _binding = FragmentMovieDescriptionBinding.inflate(inflater, container, false)
+
+
 
         return binding.root
     }
@@ -26,4 +27,5 @@ class SearchFragment : Fragment() {
         super.onDestroyView()
         _binding = null
     }
+
 }
