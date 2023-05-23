@@ -11,7 +11,7 @@ class MainViewModel(repository: MovieRepository): ViewModel() {
         return getMovieUseCase.getMovie(imdbID)
     }
 
-    suspend fun getSearchedMovie(request: String, type: String): SearchedMovieData{
-        return getSearchedMovieDataUseCase.getSearchedMovieData(request, type)
+    suspend fun getSearchedMovie(request: String, type: String, page: Int): SearchedMovieData{
+        return getSearchedMovieDataUseCase.getSearchedMovieData(request, type, page)
     }
 }

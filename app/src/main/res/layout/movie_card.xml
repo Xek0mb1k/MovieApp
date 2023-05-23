@@ -3,21 +3,23 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="wrap_content">
 
     <ImageView
         android:id="@+id/posterImageView"
         android:layout_width="182dp"
         android:layout_height="273dp"
         android:layout_marginTop="20dp"
-
-        android:background="@drawable/image_back"
         android:contentDescription="@string/poster_image"
+        android:foreground="@drawable/image_back"
+        android:background="?attr/cardBackgroundColor"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+
+
     <TextView
-        android:id="@+id/textView"
+        android:id="@+id/titleTextView"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
@@ -30,89 +32,33 @@
         tools:text="Hit-man’s Wife’s Bodyguard" />
 
     <TextView
-        android:id="@+id/movieScoreTextView"
+        android:id="@+id/movieYearTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginTop="10dp"
         app:layout_constraintStart_toEndOf="@+id/posterImageView"
-        app:layout_constraintTop_toBottomOf="@+id/textView"
-        tools:text="3.5" />
-
-    <ImageView
-        android:id="@+id/scoreStar1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="9dp"
-        android:contentDescription="@string/star"
-        android:src="@drawable/full_star"
-        app:layout_constraintBottom_toBottomOf="@+id/movieScoreTextView"
-        app:layout_constraintStart_toEndOf="@+id/movieScoreTextView"
-        app:layout_constraintTop_toTopOf="@+id/movieScoreTextView" />
-
-    <ImageView
-        android:id="@+id/scoreStar2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="5dp"
-        android:contentDescription="@string/star"
-        android:src="@drawable/full_star"
-        app:layout_constraintBottom_toBottomOf="@+id/scoreStar1"
-        app:layout_constraintStart_toEndOf="@+id/scoreStar1"
-        app:layout_constraintTop_toTopOf="@+id/scoreStar1" />
-
-    <ImageView
-        android:id="@+id/scoreStar3"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="5dp"
-        android:contentDescription="@string/star"
-        android:src="@drawable/full_star"
-        app:layout_constraintBottom_toBottomOf="@+id/scoreStar2"
-        app:layout_constraintStart_toEndOf="@+id/scoreStar2"
-        app:layout_constraintTop_toTopOf="@+id/scoreStar2" />
-
-    <ImageView
-        android:id="@+id/scoreStar4"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="5dp"
-        android:contentDescription="@string/star"
-        android:src="@drawable/full_star"
-        app:layout_constraintBottom_toBottomOf="@+id/scoreStar3"
-        app:layout_constraintStart_toEndOf="@+id/scoreStar3"
-        app:layout_constraintTop_toTopOf="@+id/scoreStar3" />
-
-    <ImageView
-        android:id="@+id/scoreStar5"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="5dp"
-        android:contentDescription="@string/star"
-        android:src="@drawable/full_star"
-        app:layout_constraintBottom_toBottomOf="@+id/scoreStar4"
-        app:layout_constraintStart_toEndOf="@+id/scoreStar4"
-        app:layout_constraintTop_toTopOf="@+id/scoreStar4" />
+        app:layout_constraintTop_toBottomOf="@+id/titleTextView"
+        tools:text="Year: 2020" />
 
     <TextView
-        android:id="@+id/descriptionTextView"
+        android:id="@+id/movieTypeTextView"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginTop="10dp"
-        android:textColor="@color/second_text_color"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/posterImageView"
-        app:layout_constraintTop_toBottomOf="@+id/movieScoreTextView"
-        tools:text="The world's most lethal odd couple - bodyguard Michael Bryce and hit-man Darius Kincaid - are back on another......" />
+        app:layout_constraintTop_toBottomOf="@+id/movieYearTextView"
+        tools:text="Type: Series" />
 
     <ImageButton
         android:id="@+id/bookmarkButton"
         android:layout_width="48dp"
         android:layout_height="48dp"
-        android:background="@drawable/ripple_back"
+        android:background="#00000000"
         android:contentDescription="@string/bookmark_button"
-
+        android:layerType="hardware"
         android:src="@drawable/bookmark_default"
         app:layout_constraintEnd_toEndOf="@+id/posterImageView"
         app:layout_constraintTop_toTopOf="@+id/posterImageView" />

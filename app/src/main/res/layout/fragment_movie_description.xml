@@ -83,13 +83,13 @@
                 android:textColor="?attr/iconTint"
                 android:textSize="30sp"
                 android:textStyle="bold"
-                app:layout_constraintBottom_toTopOf="@+id/movieScoreTextView"
+                app:layout_constraintBottom_toTopOf="@+id/movieYearTextView"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 tools:text="Hit man’s Wife’s Bodyguard" />
 
             <TextView
-                android:id="@+id/movieScoreTextView"
+                android:id="@+id/movieYearTextView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
@@ -106,9 +106,9 @@
                 android:layout_marginStart="9dp"
                 android:contentDescription="@string/star"
                 android:src="@drawable/full_star"
-                app:layout_constraintBottom_toBottomOf="@+id/movieScoreTextView"
-                app:layout_constraintStart_toEndOf="@+id/movieScoreTextView"
-                app:layout_constraintTop_toTopOf="@+id/movieScoreTextView" />
+                app:layout_constraintBottom_toBottomOf="@+id/movieYearTextView"
+                app:layout_constraintStart_toEndOf="@+id/movieYearTextView"
+                app:layout_constraintTop_toTopOf="@+id/movieYearTextView" />
 
             <ImageView
                 android:id="@+id/scoreStar2"

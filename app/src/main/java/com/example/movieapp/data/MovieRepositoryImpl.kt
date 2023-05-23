@@ -18,8 +18,8 @@ class MovieRepositoryImpl: MovieRepository {
     private val movieApi: MovieApi = retrofit.create(MovieApi::class.java)
 
 
-    override suspend fun getSearchedMovieData(request: String, type: String): SearchedMovieData {
-        return movieApi.getSearchedMovieData(request, type, apiKey)
+    override suspend fun getSearchedMovieData(request: String, type: String, page: Int): SearchedMovieData {
+        return movieApi.getSearchedMovieData(request, type, page, apiKey)
     }
 
     override suspend fun getMovie(imdbID: String): Movie {

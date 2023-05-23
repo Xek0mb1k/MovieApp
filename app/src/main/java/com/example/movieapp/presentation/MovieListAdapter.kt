@@ -8,11 +8,11 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import coil.load
 import com.example.movieapp.R
-import com.example.movieapp.domain.Movie
+import com.example.movieapp.domain.Search
 
 class MovieListAdapter : RecyclerView.Adapter<MovieListAdapter.MovieItemViewHolder>() {
 
-    private var movieList = listOf<Movie>()
+    var movieList = listOf<Search>()
         set(value) {
             field = value
             notifyDataSetChanged()
@@ -37,23 +37,19 @@ class MovieListAdapter : RecyclerView.Adapter<MovieListAdapter.MovieItemViewHold
         viewHolder.poster.load(movieItem.Poster)
         viewHolder.title.text = movieItem.Title
 
-        viewHolder.description.text = movieItem.Plot
+        viewHolder.movieYear.text = movieItem.Year
 
+        viewHolder.type.text = movieItem.Type
 
     }
 
+
     class MovieItemViewHolder(private val view: View) : RecyclerView.ViewHolder(view) {
-        val poster: ImageView = view.findViewById(R.id.imageView)
-        val title: TextView = view.findViewById(R.id.textView)
-        val movieScore: TextView = view.findViewById(R.id.movieScoreTextView)
+        val poster: ImageView = view.findViewById(R.id.posterImageView)
+        val title: TextView = view.findViewById(R.id.titleTextView)
+        val movieYear: TextView = view.findViewById(R.id.movieYearTextView)
 
-        val movieStar1: ImageView = view.findViewById(R.id.scoreStar1)
-        val movieStar2: ImageView = view.findViewById(R.id.scoreStar2)
-        val movieStar3: ImageView = view.findViewById(R.id.scoreStar3)
-        val movieStar4: ImageView = view.findViewById(R.id.scoreStar4)
-        val movieStar5: ImageView = view.findViewById(R.id.scoreStar5)
-
-        val description: TextView = view.findViewById(R.id.descriptionTV)
+        val type: TextView = view.findViewById(R.id.movieTypeTextView)
 
     }
 }
