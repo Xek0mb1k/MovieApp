@@ -3,6 +3,7 @@ package com.example.movieapp.presentation
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageButton
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
@@ -35,6 +36,13 @@ class MovieListAdapter : RecyclerView.Adapter<MovieListAdapter.MovieItemViewHold
         val movieItem = movieList[position]
 
         viewHolder.poster.load(movieItem.Poster)
+        viewHolder.bookmarkButton.setOnClickListener {
+//        if (movieItem in bookmarkMovieList){
+//            // deleteFromBookmark()
+//        }else{
+//            // addToBookmark()
+//        }
+        }
         viewHolder.title.text = movieItem.Title
 
         viewHolder.movieYear.text = movieItem.Year
@@ -46,6 +54,7 @@ class MovieListAdapter : RecyclerView.Adapter<MovieListAdapter.MovieItemViewHold
 
     class MovieItemViewHolder(private val view: View) : RecyclerView.ViewHolder(view) {
         val poster: ImageView = view.findViewById(R.id.posterImageView)
+        val bookmarkButton: ImageButton = view.findViewById(R.id.bookmarkButton)
         val title: TextView = view.findViewById(R.id.titleTextView)
         val movieYear: TextView = view.findViewById(R.id.movieYearTextView)
 
