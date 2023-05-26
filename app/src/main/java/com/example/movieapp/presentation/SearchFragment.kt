@@ -64,6 +64,7 @@ class SearchFragment : Fragment() {
                             movieList.addAll(searchedMovie.Search)
                             isEmptyList = false
                         }
+
                     }
 
                     activity!!.runOnUiThread {

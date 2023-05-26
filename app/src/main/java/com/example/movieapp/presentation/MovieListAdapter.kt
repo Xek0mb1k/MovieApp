@@ -1,11 +1,13 @@
 package com.example.movieapp.presentation
 
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageButton
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.core.graphics.drawable.toDrawable
 import androidx.recyclerview.widget.RecyclerView
 import coil.load
 import com.example.movieapp.R
@@ -37,6 +39,8 @@ class MovieListAdapter : RecyclerView.Adapter<MovieListAdapter.MovieItemViewHold
 
         viewHolder.poster.load(movieItem.Poster)
         viewHolder.bookmarkButton.setOnClickListener {
+            Log.d("DEBUG", position.toString())
+            viewHolder.bookmarkButton.setImageResource(R.drawable.bookmark_active)
 //        if (movieItem in bookmarkMovieList){
 //            // deleteFromBookmark()
 //        }else{
@@ -54,7 +58,7 @@ class MovieListAdapter : RecyclerView.Adapter<MovieListAdapter.MovieItemViewHold
 
     class MovieItemViewHolder(private val view: View) : RecyclerView.ViewHolder(view) {
         val poster: ImageView = view.findViewById(R.id.posterImageView)
-        val bookmarkButton: ImageButton = view.findViewById(R.id.bookmarkButton)
+        val bookmarkButton: ImageView = view.findViewById(R.id.bookmarkButton)
         val title: TextView = view.findViewById(R.id.titleTextView)
         val movieYear: TextView = view.findViewById(R.id.movieYearTextView)
 

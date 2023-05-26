@@ -52,14 +52,15 @@
         app:layout_constraintTop_toBottomOf="@+id/movieYearTextView"
         tools:text="Type: Series" />
 
-    <ImageButton
+    <ImageView
+        android:padding="12dp"
         android:id="@+id/bookmarkButton"
         android:layout_width="48dp"
         android:layout_height="48dp"
         android:background="#00000000"
         android:contentDescription="@string/bookmark_button"
         android:layerType="hardware"
-        android:src="@drawable/bookmark_default"
+        android:src="@drawable/bookmark_icon_selector"
         app:layout_constraintEnd_toEndOf="@+id/posterImageView"
         app:layout_constraintTop_toTopOf="@+id/posterImageView" />
 
