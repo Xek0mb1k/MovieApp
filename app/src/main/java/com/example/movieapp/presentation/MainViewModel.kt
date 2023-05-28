@@ -4,6 +4,10 @@ import androidx.lifecycle.ViewModel
 import com.example.movieapp.domain.*
 
 class MainViewModel(repository: MovieRepository): ViewModel() {
+
+    val movieList = mutableListOf<Search>()
+    val bookmarkMovieList = mutableListOf<Search>()
+
     private val getMovieUseCase = GetMovieUseCase(repository)
     private val getSearchedMovieDataUseCase = GetSearchedMovieDataUseCase(repository)
 
