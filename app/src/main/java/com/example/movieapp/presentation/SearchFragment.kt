@@ -57,7 +57,7 @@ class SearchFragment : Fragment() {
                         var page = 1
                         var isEmptyList = true
                         lateinit var searchedMovie: SearchedMovieData
-                        while (response) {
+//                        while (response) { TODO("FIX THIS")
                             val movies = vm.getSearchedMovie(query, "", page++)
                             response = movies.Response == "True"
                             if (response) {
@@ -66,7 +66,7 @@ class SearchFragment : Fragment() {
                                 isEmptyList = false
                             }
 
-                        }
+//                        }
 
                         activity!!.runOnUiThread {
                             binding.progressBar.visibility = View.GONE
