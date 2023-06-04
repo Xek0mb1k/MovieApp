@@ -48,33 +48,41 @@ class MovieListAdapter : RecyclerView.Adapter<MovieListAdapter.MovieItemViewHold
             val bookmarkListJson = sharedPref.getString("bookmarkList", null)
             val gson = Gson()
             val bookmarkMovieList = if (bookmarkListJson != null) {
-                val searchListType = object : TypeToken<MutableList<Search>>() {}.type
-                gson.fromJson(bookmarkListJson, searchListType)
+                gson.fromJson<MutableList<Search>>(
+                    bookmarkListJson,
+                    object : TypeToken<MutableList<Search>>() {}.type
+                )
+                    .toMutableList()
             } else {
                 mutableListOf<Search>()
             }
 
             if (movieItem in bookmarkMovieList) {
                 bookmarkMovieList.remove(movieItem)
-
-                sharedPref.edit().putString("bookmarkList", gson.toJson(bookmarkMovieList))
-                sharedPref.edit().apply()
                 viewHolder.bookmarkButton.setImageResource(R.drawable.bookmark_default)
             } else {
                 bookmarkMovieList.add(movieItem)
-                sharedPref.edit().putString("bookmarkList", gson.toJson(bookmarkMovieList))
-                sharedPref.edit().apply()
                 viewHolder.bookmarkButton.setImageResource(R.drawable.bookmark_active)
             }
+            sharedPref.edit().putString("bookmarkList", gson.toJson(bookmarkMovieList)).apply()
 
-            Log.d("DEBUG", sharedPref.getString("bookmarkList", "").toString())
-            val searchListType = object : TypeToken<MutableList<Search>>() {}.type
-            if (sharedPref.getString("bookmarkList", null) != null) {
-                Log.d(
-                    "DEBUG",
-                    gson.fromJson(sharedPref.getString("bookmarkList", null), searchListType)
+            Log.d(
+                "DEBUG", "JSON  " +
+                gson.toJson(bookmarkMovieList)
+            )
+
+            val searchList =
+                gson.fromJson<MutableList<Search>>(
+                    gson.toJson(bookmarkMovieList),
+                    object : TypeToken<MutableList<Search>>() {}.type
                 )
-            }
+                    .toMutableList()
+            Log.d(
+                "DEBUG", "MutableList  " +
+                        searchList.toString()
+            )
+
+            Log.d("DEBUG", sharedPref.getString("bookmarkList", null).toString())
 
         }
         viewHolder.title.text = movieItem.Title
