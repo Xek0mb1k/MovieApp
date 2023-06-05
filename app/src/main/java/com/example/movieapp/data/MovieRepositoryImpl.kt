@@ -6,7 +6,7 @@ import com.example.movieapp.domain.SearchedMovieData
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
-class MovieRepositoryImpl : MovieRepository {
+class MovieRepositoryImpl: MovieRepository {
 
     private val apiKey = "7c296a04"
 
@@ -18,8 +18,8 @@ class MovieRepositoryImpl : MovieRepository {
     private val movieApi: MovieApi = retrofit.create(MovieApi::class.java)
 
 
-    override suspend fun getSearchedMovieData(request: String, type: String): SearchedMovieData {
-        return movieApi.getSearchedMovieData(request, type, apiKey)
+    override suspend fun getSearchedMovieData(request: String, type: String, page: Int): SearchedMovieData {
+        return movieApi.getSearchedMovieData(request, type, page, apiKey)
     }
 
     override suspend fun getMovie(imdbID: String): Movie {

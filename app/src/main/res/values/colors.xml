@@ -1,5 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="black">#FF000000</color>
-    <color name="white">#FFFFFFFF</color>
+    <color name="black">#FF111111</color>
+    <color name="white">#FFF0F0F0</color>
+    <color name="yellow">#FFFFC700</color>
+    <color name="gray">#FFD4D4D4</color>
+    <color name="dark_gray">#FF2A2A2A</color>
+    <color name="second_text_color">#FF888888</color>
+
+    <color name="ripple_color_light">#20FFFFFF</color>
+    <color name="ripple_color_dark">#20000000</color>
+
 </resources>

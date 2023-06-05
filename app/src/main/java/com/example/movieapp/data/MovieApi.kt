@@ -16,6 +16,7 @@ interface MovieApi {
     suspend fun getSearchedMovieData(
         @Query("s") request: String,
         @Query("type") type: String,
+        @Query("page") page: Int,
         @Query("apikey") key: String
 
     ): SearchedMovieData
