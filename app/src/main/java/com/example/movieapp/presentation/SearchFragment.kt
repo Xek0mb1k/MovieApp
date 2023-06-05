@@ -23,7 +23,7 @@ class SearchFragment : Fragment() {
     private val binding get() = _binding!!
 
     private val adapter: MovieListAdapter by lazy {
-        MovieListAdapter()
+        activity?.applicationContext?.let { MovieListAdapter(it) }!!
     }
     private val vm by viewModel<MainViewModel>()
 
