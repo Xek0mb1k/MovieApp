@@ -3,7 +3,7 @@ package com.example.movieapp.presentation
 
 import android.annotation.SuppressLint
 import android.content.Context
-import android.util.Log
+import android.content.SharedPreferences
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -18,12 +18,15 @@ import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 
 
-class MovieListAdapter(private val context: Context) : RecyclerView.Adapter<MovieListAdapter.MovieItemViewHolder>() {
+class MovieListAdapter(private val context: Context) :
+    RecyclerView.Adapter<MovieListAdapter.MovieItemViewHolder>() {
     var movieList = listOf<Search>()
         set(value) {
             field = value
             notifyDataSetChanged()
         }
+
+    var onMovieItemClickListener: OnMovieItemClickListener? = null
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MovieItemViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(
@@ -32,63 +35,22 @@ class MovieListAdapter(private val context: Context) : RecyclerView.Adapter<Movi
         return MovieItemViewHolder(view)
     }
 
-    override fun getItemCount(): Int {
-        return movieList.size
-    }
 
     @SuppressLint("CommitPrefEdits")
     override fun onBindViewHolder(viewHolder: MovieItemViewHolder, position: Int) {
         val sharedPref = PreferenceManager.getDefaultSharedPreferences(this.context)
 
-        val bookmarkListJson = sharedPref.getString("bookmarkList", null)
-
-        val gson = Gson()
-        val bookmarkMovieList = if (bookmarkListJson != null) {
-            gson.fromJson<MutableList<Search>>(
-                bookmarkListJson,
-                object : TypeToken<MutableList<Search>>() {}.type
-            )
-                .toMutableList()
-        } else {
-            mutableListOf<Search>()
-        }
+        val bookmarkMovieList = getMovieList(sharedPref)
 
         val movieItem = movieList[position]
-        viewHolder.bookmarkButton.setImageResource(
-            if (movieItem in bookmarkMovieList) {
-                R.drawable.bookmark_active
-            } else {
-                R.drawable.bookmark_default
-            }
-        )
+
+        setBookmarkButtonIcon(viewHolder, movieItem, bookmarkMovieList)
 
         viewHolder.poster.load(movieItem.Poster)
+
         viewHolder.bookmarkButton.setOnClickListener {
-
-
-            if (movieItem in bookmarkMovieList) {
-                bookmarkMovieList.remove(movieItem)
-                viewHolder.bookmarkButton.setImageResource(R.drawable.bookmark_default)
-            } else {
-                bookmarkMovieList.add(movieItem)
-                viewHolder.bookmarkButton.setImageResource(R.drawable.bookmark_active)
-            }
-            sharedPref.edit().putString("bookmarkList", gson.toJson(bookmarkMovieList)).apply()
-
-
-            val searchList =
-                gson.fromJson<MutableList<Search>>(
-                    gson.toJson(bookmarkMovieList),
-                    object : TypeToken<MutableList<Search>>() {}.type
-                )
-                    .toMutableList()
-            Log.d(
-                "DEBUG", "MutableList  " +
-                        searchList.toString()
-            )
-
-            Log.d("DEBUG", sharedPref.getString("bookmarkList", null).toString())
-
+            changeBookmarkIcon(movieItem, bookmarkMovieList, viewHolder)
+            putBookmarkMovieListInSharedPref(sharedPref, bookmarkMovieList)
         }
         viewHolder.title.text = movieItem.Title
 
@@ -96,6 +58,63 @@ class MovieListAdapter(private val context: Context) : RecyclerView.Adapter<Movi
 
         viewHolder.type.text = movieItem.Type
 
+    }
+
+    private fun changeBookmarkIcon(
+        movieItem: Search,
+        bookmarkMovieList: MutableList<Search>,
+        viewHolder: MovieItemViewHolder
+    ) {
+        if (movieItem in bookmarkMovieList) {
+            bookmarkMovieList.remove(movieItem)
+            viewHolder.bookmarkButton.setImageResource(R.drawable.bookmark_default)
+        } else {
+            bookmarkMovieList.add(movieItem)
+            viewHolder.bookmarkButton.setImageResource(R.drawable.bookmark_active)
+        }
+    }
+
+    private fun setBookmarkButtonIcon(
+        viewHolder: MovieItemViewHolder,
+        movieItem: Search,
+        bookmarkMovieList: MutableList<Search>
+    ) {
+        viewHolder.bookmarkButton.setImageResource(
+            if (movieItem in bookmarkMovieList) {
+                R.drawable.bookmark_active
+            } else {
+                R.drawable.bookmark_default
+            }
+        )
+    }
+
+    private fun putBookmarkMovieListInSharedPref(
+        sharedPref: SharedPreferences,
+        bookmarkMovieList: MutableList<Search>
+    ) {
+        val gson = Gson()
+        sharedPref.edit().putString("bookmarkList", gson.toJson(bookmarkMovieList)).apply()
+    }
+
+    private fun getMovieList(sharedPref: SharedPreferences): MutableList<Search> {
+        val bookmarkListJson = sharedPref.getString("bookmarkList", null)
+
+        val gson = Gson()
+
+        return if (bookmarkListJson != null) {
+            gson.fromJson<MutableList<Search>>(
+                bookmarkListJson,
+                object : TypeToken<MutableList<Search>>() {}.type
+            )
+                .toMutableList()
+        } else {
+            mutableListOf()
+        }
+    }
+
+
+    override fun getItemCount(): Int {
+        return movieList.size
     }
 
 
@@ -106,5 +125,9 @@ class MovieListAdapter(private val context: Context) : RecyclerView.Adapter<Movi
         val movieYear: TextView = view.findViewById(R.id.movieYearTextView)
 
         val type: TextView = view.findViewById(R.id.movieTypeTextView)
+    }
+
+    interface OnMovieItemClickListener {
+        fun onMovieItemClickListener(movieItem: List<Search>)
     }
 }
