@@ -10,6 +10,7 @@ import android.widget.Toast.LENGTH_SHORT
 import androidx.fragment.app.Fragment
 import com.example.movieapp.R
 import com.example.movieapp.databinding.FragmentSearchBinding
+import com.example.movieapp.domain.Search
 import com.example.movieapp.domain.SearchedMovieData
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -22,8 +23,8 @@ class SearchFragment : Fragment() {
     private var _binding: FragmentSearchBinding? = null
     private val binding get() = _binding!!
 
-    private val adapter: MovieListAdapter by lazy {
-        activity?.applicationContext?.let { MovieListAdapter(it) }!!
+    private val movieListAdapter by lazy {
+        MovieListAdapter()
     }
     private val vm by viewModel<MainViewModel>()
 
@@ -31,11 +32,14 @@ class SearchFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View {
         _binding = FragmentSearchBinding.inflate(inflater, container, false)
-        binding.searchView.isActivated = true
-        binding.searchView.queryHint = getString(R.string.search_hint)
-        binding.searchView.onActionViewExpanded()
-        binding.searchView.isIconified = false
-        binding.searchView.clearFocus()
+        with(binding.searchView) {
+            isActivated = true
+            queryHint = getString(R.string.search_hint)
+            onActionViewExpanded()
+            isIconified = false
+            clearFocus()
+        }
+
 
         setupRecyclerView()
 
@@ -58,13 +62,13 @@ class SearchFragment : Fragment() {
                         var isEmptyList = true
                         lateinit var searchedMovie: SearchedMovieData
 //                        while (response) { TODO("FIX THIS")
-                            val movies = vm.getSearchedMovie(query, "", page++)
-                            response = movies.Response == "True"
-                            if (response) {
-                                searchedMovie = movies
-                                vm.movieList.addAll(searchedMovie.Search)
-                                isEmptyList = false
-                            }
+                        val movies = vm.getSearchedMovie(query, "", page++)
+                        response = movies.Response == "True"
+                        if (response) {
+                            searchedMovie = movies
+                            vm.movieList.addAll(searchedMovie.Search)
+                            isEmptyList = false
+                        }
 
 //                        }
 
@@ -81,12 +85,12 @@ class SearchFragment : Fragment() {
                                 binding.searchTextView.text =
                                     String.format(format, searchedMovie.totalResults)
 
-                                adapter.movieList = vm.movieList
+                                movieListAdapter.movieList = vm.movieList
                             }
                         }
                     }
 
-                }else{
+                } else {
                     isSearchViewSubmitted = false
                 }
                 return false
@@ -98,7 +102,15 @@ class SearchFragment : Fragment() {
         })
 
 
+
         return binding.root
+    }
+
+    override fun onPause() {
+        // TODO("IMPLEMENTED SAVE DATA")
+        Log.d("DEBUG", "Pause VIEW")
+
+        super.onPause()
     }
 
     override fun onDestroyView() {
@@ -107,6 +119,45 @@ class SearchFragment : Fragment() {
     }
 
     private fun setupRecyclerView() {
-        binding.movieItemsSpinnerRecyclerView.adapter = adapter
+        val rvMovieList = binding.movieItemsSpinnerRecyclerView
+        with(rvMovieList) {
+            adapter = movieListAdapter
+        }
+        binding.movieItemsSpinnerRecyclerView.adapter = movieListAdapter
+        movieListAdapter.initMovieItem = {movieItem: Search, viewHolder: MovieListAdapter.MovieItemViewHolder ->
+            viewHolder.bookmarkButton.setImageResource(
+                if (movieItem in vm.bookmarkMovieList) {
+                    R.drawable.bookmark_active
+                } else {
+                    R.drawable.bookmark_default
+                }
+            )
+        }
+
+        movieListAdapter.onMovieItemClickListener = {
+            Log.d("DEBUG", it.Title + " " + it.imdbID)
+        }
+
+        movieListAdapter.onBookmarkButtonClickListener =
+            { movieItem: Search, viewHolder: MovieListAdapter.MovieItemViewHolder ->
+
+                with(vm) {
+                    if (movieItem in bookmarkMovieList) {
+                        bookmarkMovieList.remove(movieItem)
+                        viewHolder.bookmarkButton.setImageResource(R.drawable.bookmark_default)
+                    } else {
+                        bookmarkMovieList.add(movieItem)
+                        viewHolder.bookmarkButton.setImageResource(R.drawable.bookmark_active)
+                    }
+
+                    // DEBUG
+                    for (i in bookmarkMovieList) {
+                        Log.d("DEBUG", "SEARCH FRAGMENT: " + i.Title)
+                    }
+
+                }
+
+            }
+
     }
 }
