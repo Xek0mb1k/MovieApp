@@ -1,5 +1,6 @@
 package com.example.movieapp.presentation
 
+import android.content.Context
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -28,6 +29,9 @@ class SearchFragment : Fragment() {
     }
     private val vm by viewModel<MainViewModel>()
 
+    private val sharedPref by lazy { activity?.getSharedPreferences("pref", Context.MODE_PRIVATE) }
+
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View {
@@ -40,6 +44,8 @@ class SearchFragment : Fragment() {
             clearFocus()
         }
 
+
+         vm.bookmarkMovieList = vm.getBookmarkList(sharedPref)
 
         setupRecyclerView()
 
@@ -116,23 +122,28 @@ class SearchFragment : Fragment() {
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
+
+        vm.saveBookmarkList(vm.bookmarkMovieList, sharedPref)
+        Log.d("DEBUG", "DATA SAVED IN SEARCH FRAGMENT")
     }
 
     private fun setupRecyclerView() {
+
         val rvMovieList = binding.movieItemsSpinnerRecyclerView
         with(rvMovieList) {
             adapter = movieListAdapter
         }
         binding.movieItemsSpinnerRecyclerView.adapter = movieListAdapter
-        movieListAdapter.initMovieItem = {movieItem: Search, viewHolder: MovieListAdapter.MovieItemViewHolder ->
-            viewHolder.bookmarkButton.setImageResource(
-                if (movieItem in vm.bookmarkMovieList) {
-                    R.drawable.bookmark_active
-                } else {
-                    R.drawable.bookmark_default
-                }
-            )
-        }
+        movieListAdapter.initMovieItem =
+            { movieItem: Search, viewHolder: MovieListAdapter.MovieItemViewHolder ->
+                viewHolder.bookmarkButton.setImageResource(
+                    if (movieItem in vm.bookmarkMovieList) {
+                        R.drawable.bookmark_active
+                    } else {
+                        R.drawable.bookmark_default
+                    }
+                )
+            }
 
         movieListAdapter.onMovieItemClickListener = {
             Log.d("DEBUG", it.Title + " " + it.imdbID)

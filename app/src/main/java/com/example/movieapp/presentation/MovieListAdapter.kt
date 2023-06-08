@@ -12,8 +12,7 @@ import com.example.movieapp.R
 import com.example.movieapp.domain.Search
 
 
-class MovieListAdapter() :
-    RecyclerView.Adapter<MovieListAdapter.MovieItemViewHolder>() {
+class MovieListAdapter() : RecyclerView.Adapter<MovieListAdapter.MovieItemViewHolder>() {
     var movieList = listOf<Search>()
         set(value) {
             field = value
@@ -21,7 +20,8 @@ class MovieListAdapter() :
         }
 
     var onMovieItemClickListener: ((Search) -> Unit)? = null
-    var onBookmarkButtonClickListener: ((movieItem: Search, viewHolder: MovieItemViewHolder) -> Unit)? = null
+    var onBookmarkButtonClickListener: ((movieItem: Search, viewHolder: MovieItemViewHolder) -> Unit)? =
+        null
     var initMovieItem: ((Search, MovieItemViewHolder) -> Unit)? = null
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MovieItemViewHolder {
