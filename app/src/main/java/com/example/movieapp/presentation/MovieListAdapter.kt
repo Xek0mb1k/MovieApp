@@ -2,22 +2,15 @@ package com.example.movieapp.presentation
 
 
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
-import android.widget.TextView
-import androidx.recyclerview.widget.RecyclerView
+import androidx.recyclerview.widget.ListAdapter
 import coil.load
 import com.example.movieapp.R
 import com.example.movieapp.domain.Search
 
 
-class MovieListAdapter() : RecyclerView.Adapter<MovieListAdapter.MovieItemViewHolder>() {
-    var movieList = listOf<Search>()
-        set(value) {
-            field = value
-            notifyDataSetChanged()
-        }
+class MovieListAdapter : ListAdapter<Search, MovieItemViewHolder>(MovieItemDiffCallback()) {
+
 
     var onMovieItemClickListener: ((Search) -> Unit)? = null
     var onBookmarkButtonClickListener: ((movieItem: Search, viewHolder: MovieItemViewHolder) -> Unit)? =
@@ -32,7 +25,7 @@ class MovieListAdapter() : RecyclerView.Adapter<MovieListAdapter.MovieItemViewHo
     }
 
     override fun onBindViewHolder(viewHolder: MovieItemViewHolder, position: Int) {
-        val movieItem = movieList[position]
+        val movieItem = getItem(position)
 
 
         initMovieItem?.invoke(movieItem, viewHolder)
@@ -54,17 +47,7 @@ class MovieListAdapter() : RecyclerView.Adapter<MovieListAdapter.MovieItemViewHo
 
     }
 
-    override fun getItemCount(): Int {
-        return movieList.size
-    }
 
-    class MovieItemViewHolder(view: View) : RecyclerView.ViewHolder(view) {
-        val poster: ImageView = view.findViewById(R.id.posterImageView)
-        val bookmarkButton: ImageView = view.findViewById(R.id.bookmarkButton)
-        val title: TextView = view.findViewById(R.id.titleTextView)
-        val movieYear: TextView = view.findViewById(R.id.movieYearTextView)
 
-        val type: TextView = view.findViewById(R.id.movieTypeTextView)
-    }
 
 }

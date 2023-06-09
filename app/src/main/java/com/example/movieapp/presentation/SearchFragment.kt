@@ -91,7 +91,7 @@ class SearchFragment : Fragment() {
                                 binding.searchTextView.text =
                                     String.format(format, searchedMovie.totalResults)
 
-                                movieListAdapter.movieList = vm.movieList
+                                movieListAdapter.submitList(vm.movieList)
                             }
                         }
                     }
@@ -135,7 +135,7 @@ class SearchFragment : Fragment() {
         }
         binding.movieItemsSpinnerRecyclerView.adapter = movieListAdapter
         movieListAdapter.initMovieItem =
-            { movieItem: Search, viewHolder: MovieListAdapter.MovieItemViewHolder ->
+            { movieItem: Search, viewHolder: MovieItemViewHolder ->
                 viewHolder.bookmarkButton.setImageResource(
                     if (movieItem in vm.bookmarkMovieList) {
                         R.drawable.bookmark_active
@@ -150,7 +150,7 @@ class SearchFragment : Fragment() {
         }
 
         movieListAdapter.onBookmarkButtonClickListener =
-            { movieItem: Search, viewHolder: MovieListAdapter.MovieItemViewHolder ->
+            { movieItem: Search, viewHolder: MovieItemViewHolder ->
 
                 with(vm) {
                     if (movieItem in bookmarkMovieList) {

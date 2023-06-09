@@ -49,7 +49,7 @@ class BookmarksFragment : Fragment() {
             Log.d("DEBUG", "BOOKMARK FRAGMENT: " + i.Title)
         }
 
-        movieListAdapter.movieList = vm.bookmarkMovieList
+        movieListAdapter.submitList(vm.bookmarkMovieList)
 
     }
 
@@ -69,7 +69,7 @@ class BookmarksFragment : Fragment() {
         }
         binding.bookmarkedMovieItemsSpinner.adapter = movieListAdapter
         movieListAdapter.initMovieItem =
-            { movieItem: Search, viewHolder: MovieListAdapter.MovieItemViewHolder ->
+            { movieItem: Search, viewHolder: MovieItemViewHolder ->
                 viewHolder.bookmarkButton.setImageResource(
                     if (movieItem in vm.bookmarkMovieList) {
                         R.drawable.bookmark_active
@@ -84,7 +84,7 @@ class BookmarksFragment : Fragment() {
         }
 
         movieListAdapter.onBookmarkButtonClickListener =
-            { movieItem: Search, viewHolder: MovieListAdapter.MovieItemViewHolder ->
+            { movieItem: Search, viewHolder: MovieItemViewHolder ->
 
                 with(vm) {
                     if (movieItem in bookmarkMovieList) {
