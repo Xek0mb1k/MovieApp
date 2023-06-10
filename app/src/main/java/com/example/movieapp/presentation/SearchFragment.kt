@@ -2,7 +2,6 @@ package com.example.movieapp.presentation
 
 import android.content.Context
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -13,6 +12,7 @@ import com.example.movieapp.R
 import com.example.movieapp.databinding.FragmentSearchBinding
 import com.example.movieapp.domain.Search
 import com.example.movieapp.domain.SearchedMovieData
+import com.google.android.material.bottomnavigation.BottomNavigationView
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -158,8 +158,23 @@ class SearchFragment : Fragment() {
             }
 
         movieListAdapter.onMovieItemClickListener = {
-            Log.d("DEBUG", it.Title + " " + it.imdbID)
-            //TODO("IMPLEMENTED MOVIE DETAILS")
+
+
+            val transaction = activity?.supportFragmentManager?.beginTransaction()
+            transaction?.replace(
+                R.id.fragment,
+                MovieDescriptionFragment().apply {
+                    arguments = Bundle().apply {
+                        putParcelable("ITEM_DATA_KEY", it)
+                    }
+                }
+            )
+            transaction?.addToBackStack("MovieDescriptionFragment")
+            transaction?.commit()
+            activity?.findViewById<BottomNavigationView>(R.id.bottomNavigationView)?.visibility =
+                View.GONE
+
+
         }
 
         movieListAdapter.onBookmarkButtonClickListener =
@@ -179,7 +194,7 @@ class SearchFragment : Fragment() {
 
         movieListAdapter.loadNextPage =
             {
-                if (it % 8 == 0 && maxPosition < it){
+                if (it % 8 == 0 && maxPosition < it) {
                     page++
                     loadPage()
                 }
@@ -190,7 +205,7 @@ class SearchFragment : Fragment() {
     }
 
 
-    companion object{
+    companion object {
         private const val FIRST_PAGE = 1
     }
 }

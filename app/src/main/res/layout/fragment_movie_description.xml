@@ -29,8 +29,9 @@
 
                 android:layout_width="wrap_content"
                 android:layout_height="560dp"
-                android:background="@drawable/poster_background"
+                android:adjustViewBounds="true"
 
+                android:background="@drawable/poster_background"
                 android:contentDescription="@string/poster_image"
                 android:scaleType="centerCrop"
                 android:src="@drawable/test_poster"
@@ -50,7 +51,7 @@
             </View>
 
             <ImageButton
-                android:id="@+id/imageButton"
+                android:id="@+id/toBackButton"
                 android:layout_width="48dp"
                 android:layout_height="48dp"
                 android:layout_marginStart="15dp"
@@ -83,13 +84,13 @@
                 android:textColor="?attr/iconTint"
                 android:textSize="30sp"
                 android:textStyle="bold"
-                app:layout_constraintBottom_toTopOf="@+id/movieYearTextView"
+                app:layout_constraintBottom_toTopOf="@+id/movieRatingTextView"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 tools:text="Hit man’s Wife’s Bodyguard" />
 
             <TextView
-                android:id="@+id/movieYearTextView"
+                android:id="@+id/movieRatingTextView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
@@ -106,9 +107,9 @@
                 android:layout_marginStart="9dp"
                 android:contentDescription="@string/star"
                 android:src="@drawable/full_star"
-                app:layout_constraintBottom_toBottomOf="@+id/movieYearTextView"
-                app:layout_constraintStart_toEndOf="@+id/movieYearTextView"
-                app:layout_constraintTop_toTopOf="@+id/movieYearTextView" />
+                app:layout_constraintBottom_toBottomOf="@+id/movieRatingTextView"
+                app:layout_constraintStart_toEndOf="@+id/movieRatingTextView"
+                app:layout_constraintTop_toTopOf="@+id/movieRatingTextView" />
 
             <ImageView
                 android:id="@+id/scoreStar2"
@@ -200,10 +201,10 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
-                android:layout_marginTop="10dp"
+                android:layout_marginTop="8dp"
                 android:text="@string/runtime"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/releaseTextTV" />
+                app:layout_constraintTop_toBottomOf="@+id/releaseValueTV" />
 
             <TextView
                 android:id="@+id/runtimeValueTV"
@@ -217,11 +218,11 @@
                 android:id="@+id/directorTextTV"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
                 android:layout_marginStart="16dp"
-                android:layout_marginTop="10dp"
                 android:text="@string/director"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/runtimeTextTV" />
+                app:layout_constraintTop_toBottomOf="@+id/runtimeValueTV" />
 
             <TextView
                 android:id="@+id/directorValueTV"
@@ -236,10 +237,10 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
-                android:layout_marginTop="10dp"
+                android:layout_marginTop="8dp"
                 android:text="@string/actors"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/directorTextTV" />
+                app:layout_constraintTop_toBottomOf="@+id/directorValueTV" />
 
             <TextView
                 android:id="@+id/actorsValueTV"
@@ -256,21 +257,22 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
-                android:layout_marginTop="10dp"
+                android:layout_marginTop="8dp"
                 android:text="@string/awards"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/actorsTextTV" />
+                app:layout_constraintTop_toBottomOf="@+id/actorsValueTV" />
 
             <TextView
                 android:id="@+id/awardsValueTV"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="16dp"
-                android:layout_marginBottom="60dp"
+                android:paddingBottom="20dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="@+id/guideline"
                 app:layout_constraintTop_toTopOf="@+id/awardsTextTV"
                 tools:text="Nominated for 1 Oscar. 15 wins 60 nominations total" />
+
         </androidx.constraintlayout.widget.ConstraintLayout>
 
     </ScrollView>
