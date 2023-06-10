@@ -17,6 +17,7 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.viewModel
+import kotlin.math.max
 
 
 class SearchFragment : Fragment() {
@@ -31,21 +32,19 @@ class SearchFragment : Fragment() {
 
     private val sharedPref by lazy { activity?.getSharedPreferences("pref", Context.MODE_PRIVATE) }
 
+    private var page = FIRST_PAGE
+
+    private var query = ""
+
+    private var maxPosition = 0
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View {
         _binding = FragmentSearchBinding.inflate(inflater, container, false)
-        with(binding.searchView) {
-            isActivated = true
-            queryHint = getString(R.string.search_hint)
-            onActionViewExpanded()
-            isIconified = false
-            clearFocus()
-        }
+        initSearchView()
 
-
-         vm.bookmarkMovieList = vm.getBookmarkList(sharedPref)
+        vm.bookmarkMovieList = vm.getBookmarkList(sharedPref)
 
         setupRecyclerView()
 
@@ -53,48 +52,16 @@ class SearchFragment : Fragment() {
 
         binding.searchView.setOnQueryTextListener(object :
             androidx.appcompat.widget.SearchView.OnQueryTextListener {
-
-            override fun onQueryTextSubmit(query: String): Boolean {
+            override fun onQueryTextSubmit(localQuery: String): Boolean {
                 if (!isSearchViewSubmitted) {
+                    maxPosition = 0
                     isSearchViewSubmitted = true
 
-                    Log.d("DEBUG", "QUERY $query")
-                    binding.progressBar.visibility = View.VISIBLE
-                    binding.movieItemsSpinnerRecyclerView.visibility = View.GONE
-                    vm.movieList.clear()
-                    CoroutineScope(Dispatchers.IO).launch {
-                        var response = true
-                        var page = 1
-                        var isEmptyList = true
-                        lateinit var searchedMovie: SearchedMovieData
-//                        while (response) { TODO("FIX THIS")
-                        val movies = vm.getSearchedMovie(query, "", page++)
-                        response = movies.Response == "True"
-                        if (response) {
-                            searchedMovie = movies
-                            vm.movieList.addAll(searchedMovie.Search)
-                            isEmptyList = false
-                        }
+                    setupRecyclerView()
 
-//                        }
+                    initSearch(localQuery)
 
-                        activity!!.runOnUiThread {
-                            binding.progressBar.visibility = View.GONE
-                            binding.movieItemsSpinnerRecyclerView.visibility = View.VISIBLE
-                            if (isEmptyList) {
-                                Toast.makeText(
-                                    activity, "Movie not found! Please try again!", LENGTH_SHORT
-                                ).show()
-                                vm.movieList.clear()
-                            } else {
-                                val format = resources.getString(R.string.search_results)
-                                binding.searchTextView.text =
-                                    String.format(format, searchedMovie.totalResults)
-
-                                movieListAdapter.submitList(vm.movieList)
-                            }
-                        }
-                    }
+                    loadPage()
 
                 } else {
                     isSearchViewSubmitted = false
@@ -107,16 +74,62 @@ class SearchFragment : Fragment() {
             }
         })
 
-
-
         return binding.root
     }
 
-    override fun onPause() {
-        // TODO("IMPLEMENTED SAVE DATA")
-        Log.d("DEBUG", "Pause VIEW")
+    private fun initSearch(localQuery: String) {
+        binding.progressBar.visibility = View.VISIBLE
+        binding.movieItemsSpinnerRecyclerView.visibility = View.GONE
+        vm.movieList.clear()
+        page = FIRST_PAGE
+        query = localQuery
+        movieListAdapter.submitList(vm.movieList)
+    }
 
-        super.onPause()
+    private fun loadPage() {
+
+        lateinit var searchedMovie: SearchedMovieData
+        CoroutineScope(Dispatchers.IO).launch {
+
+            val movies = vm.getSearchedMovie(query, "", page)
+
+            requireActivity().runOnUiThread {
+
+                val response = movies.Response == "True"
+                if (response) {
+                    searchedMovie = movies
+                    vm.movieList.addAll(searchedMovie.Search)
+                }
+
+                binding.progressBar.visibility = View.GONE
+                binding.movieItemsSpinnerRecyclerView.visibility = View.VISIBLE
+                if (!response) {
+                    Toast.makeText(
+                        activity, "Movie not found!", LENGTH_SHORT
+                    ).show()
+                    vm.movieList.clear()
+                    val format = resources.getString(R.string.search_results)
+                    binding.searchTextView.text =
+                        String.format(format, 0)
+                } else {
+                    val format = resources.getString(R.string.search_results)
+                    binding.searchTextView.text =
+                        String.format(format, searchedMovie.totalResults)
+
+                    movieListAdapter.submitList(vm.movieList)
+                }
+            }
+        }
+    }
+
+    private fun initSearchView() {
+        with(binding.searchView) {
+            isActivated = true
+            queryHint = getString(R.string.search_hint)
+            onActionViewExpanded()
+            isIconified = false
+            clearFocus()
+        }
     }
 
     override fun onDestroyView() {
@@ -124,7 +137,6 @@ class SearchFragment : Fragment() {
         _binding = null
 
         vm.saveBookmarkList(vm.bookmarkMovieList, sharedPref)
-        Log.d("DEBUG", "DATA SAVED IN SEARCH FRAGMENT")
     }
 
     private fun setupRecyclerView() {
@@ -147,6 +159,7 @@ class SearchFragment : Fragment() {
 
         movieListAdapter.onMovieItemClickListener = {
             Log.d("DEBUG", it.Title + " " + it.imdbID)
+            //TODO("IMPLEMENTED MOVIE DETAILS")
         }
 
         movieListAdapter.onBookmarkButtonClickListener =
@@ -160,15 +173,24 @@ class SearchFragment : Fragment() {
                         bookmarkMovieList.add(movieItem)
                         viewHolder.bookmarkButton.setImageResource(R.drawable.bookmark_active)
                     }
-
-                    // DEBUG
-                    for (i in bookmarkMovieList) {
-                        Log.d("DEBUG", "SEARCH FRAGMENT: " + i.Title)
-                    }
-
                 }
 
             }
 
+        movieListAdapter.loadNextPage =
+            {
+                if (it % 8 == 0 && maxPosition < it){
+                    page++
+                    loadPage()
+                }
+                maxPosition = max(maxPosition, it)
+
+
+            }
+    }
+
+
+    companion object{
+        private const val FIRST_PAGE = 1
     }
 }

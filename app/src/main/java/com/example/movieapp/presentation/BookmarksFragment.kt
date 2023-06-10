@@ -5,8 +5,6 @@ import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
-import android.view.View.GONE
-import android.view.View.VISIBLE
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.example.movieapp.R
@@ -40,14 +38,7 @@ class BookmarksFragment : Fragment() {
 
     override fun onResume() {
         super.onResume()
-        Log.d("DEBUG", sharedPref.toString())
         vm.bookmarkMovieList = vm.getBookmarkList(sharedPref)
-
-        // DEBUG
-        Log.d("DEBUG", "BOOKMARK FRAGMENT: " + vm.bookmarkMovieList)
-        for(i in vm.bookmarkMovieList) {
-            Log.d("DEBUG", "BOOKMARK FRAGMENT: " + i.Title)
-        }
 
         movieListAdapter.submitList(vm.bookmarkMovieList)
 
@@ -89,17 +80,10 @@ class BookmarksFragment : Fragment() {
                 with(vm) {
                     if (movieItem in bookmarkMovieList) {
                         bookmarkMovieList.remove(movieItem)
-                        viewHolder.itemView.visibility = GONE
                         viewHolder.bookmarkButton.setImageResource(R.drawable.bookmark_default)
                     } else {
                         bookmarkMovieList.add(movieItem)
-                        viewHolder.itemView.visibility = VISIBLE
                         viewHolder.bookmarkButton.setImageResource(R.drawable.bookmark_active)
-                    }
-
-                    // DEBUG
-                    for (i in bookmarkMovieList) {
-                        Log.d("DEBUG", "SEARCH FRAGMENT: " + i.Title)
                     }
 
                     saveBookmarkList(bookmarkMovieList, sharedPref)

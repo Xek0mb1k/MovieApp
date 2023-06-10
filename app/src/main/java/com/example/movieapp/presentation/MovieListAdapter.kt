@@ -11,11 +11,11 @@ import com.example.movieapp.domain.Search
 
 class MovieListAdapter : ListAdapter<Search, MovieItemViewHolder>(MovieItemDiffCallback()) {
 
-
     var onMovieItemClickListener: ((Search) -> Unit)? = null
     var onBookmarkButtonClickListener: ((movieItem: Search, viewHolder: MovieItemViewHolder) -> Unit)? =
         null
     var initMovieItem: ((Search, MovieItemViewHolder) -> Unit)? = null
+    var loadNextPage: ((Int) -> Unit)? = null
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MovieItemViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(
@@ -27,9 +27,7 @@ class MovieListAdapter : ListAdapter<Search, MovieItemViewHolder>(MovieItemDiffC
     override fun onBindViewHolder(viewHolder: MovieItemViewHolder, position: Int) {
         val movieItem = getItem(position)
 
-
         initMovieItem?.invoke(movieItem, viewHolder)
-
 
         viewHolder.poster.load(movieItem.Poster)
 
@@ -45,9 +43,11 @@ class MovieListAdapter : ListAdapter<Search, MovieItemViewHolder>(MovieItemDiffC
         viewHolder.movieYear.text = movieItem.Year
         viewHolder.type.text = movieItem.Type
 
+
+        if (position % 8 == 0){
+            loadNextPage?.invoke(position)
+        }
+
     }
-
-
-
 
 }
