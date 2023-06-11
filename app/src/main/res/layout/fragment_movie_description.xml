@@ -2,14 +2,54 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/fragmentMovieDescription"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="?attr/backgroundColor"
     tools:context=".presentation.MovieDescriptionFragment">
 
+    <ProgressBar
+        android:id="@+id/progressBar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:visibility="gone" />
+
+    <ImageButton
+        android:id="@+id/toBackButton"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:layout_gravity="left"
+        android:layout_marginStart="15dp"
+        android:layout_marginTop="30dp"
+        android:background="@drawable/ripple_back"
+        android:contentDescription="@string/return_back"
+        android:src="@drawable/back_arrow"
+        android:translationZ="1dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:ignore="RtlHardcoded" />
+
+    <ImageButton
+android:id="@+id/bookmarkButton"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:layout_gravity="right"
+        android:layout_marginTop="30dp"
+        android:layout_marginEnd="15dp"
+        android:background="@drawable/ripple_back"
+        android:contentDescription="@string/bookmark_button"
+        android:src="@drawable/bookmark_icon_selector"
+        android:translationZ="1dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:ignore="RtlHardcoded" />
+
     <ScrollView
+
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:visibility="visible"
         tools:ignore="UselessParent">
 
         <androidx.constraintlayout.widget.ConstraintLayout
@@ -27,14 +67,13 @@
             <ImageView
                 android:id="@+id/imageView"
 
-                android:layout_width="wrap_content"
-                android:layout_height="560dp"
+                android:layout_width="match_parent"
+                android:layout_height="500dp"
                 android:adjustViewBounds="true"
 
-                android:background="@drawable/poster_background"
+                android:background="@color/gray"
                 android:contentDescription="@string/poster_image"
                 android:scaleType="centerCrop"
-                android:src="@drawable/test_poster"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -42,7 +81,7 @@
             <View
                 android:id="@+id/view"
                 android:layout_width="match_parent"
-                android:layout_height="560dp"
+                android:layout_height="500dp"
                 android:background="@drawable/poster_background"
                 app:layout_constraintEnd_toEndOf="@+id/imageView"
                 app:layout_constraintStart_toStartOf="@+id/imageView"
@@ -50,29 +89,6 @@
 
             </View>
 
-            <ImageButton
-                android:id="@+id/toBackButton"
-                android:layout_width="48dp"
-                android:layout_height="48dp"
-                android:layout_marginStart="15dp"
-                android:layout_marginTop="30dp"
-                android:background="@drawable/ripple_back"
-                android:contentDescription="@string/return_back"
-                android:src="@drawable/back_arrow"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <ImageButton
-                android:layout_width="48dp"
-                android:layout_height="48dp"
-                android:layout_marginTop="30dp"
-                android:layout_marginEnd="15dp"
-                android:background="@drawable/ripple_back"
-
-                android:contentDescription="@string/bookmark_button"
-                android:src="@drawable/bookmark_icon_selector"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
                 android:id="@+id/movieNameTextView"
@@ -218,8 +234,8 @@
                 android:id="@+id/directorTextTV"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
                 android:layout_marginStart="16dp"
+                android:layout_marginTop="8dp"
                 android:text="@string/director"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/runtimeValueTV" />
