@@ -11,4 +11,5 @@ val appModule = module {
     single<MovieRepository> { MovieRepositoryImpl() }
 
     viewModel { MainViewModel(get()) }
+
 }
