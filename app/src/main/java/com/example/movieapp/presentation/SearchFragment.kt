@@ -86,6 +86,11 @@ class SearchFragment : Fragment() {
         movieListAdapter.submitList(vm.movieList)
     }
 
+    override fun onResume() {
+        super.onResume()
+        vm.bookmarkMovieList = vm.getBookmarkList(sharedPref)
+    }
+
     private fun loadPage() {
 
         lateinit var searchedMovie: SearchedMovieData
@@ -158,8 +163,6 @@ class SearchFragment : Fragment() {
             }
 
         movieListAdapter.onMovieItemClickListener = {
-
-
             val transaction = activity?.supportFragmentManager?.beginTransaction()
             transaction?.replace(
                 R.id.fragment,
@@ -173,8 +176,6 @@ class SearchFragment : Fragment() {
             transaction?.commit()
             activity?.findViewById<BottomNavigationView>(R.id.bottomNavigationView)?.visibility =
                 View.GONE
-
-
         }
 
         movieListAdapter.onBookmarkButtonClickListener =
