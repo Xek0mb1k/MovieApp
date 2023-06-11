@@ -2,7 +2,7 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/fragmentMovieDescription"
+
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="?attr/backgroundColor"
@@ -13,7 +13,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:visibility="gone" />
+        android:translationZ="3dp"
+        android:visibility="visible" />
 
     <ImageButton
         android:id="@+id/toBackButton"
@@ -31,7 +32,7 @@
         tools:ignore="RtlHardcoded" />
 
     <ImageButton
-android:id="@+id/bookmarkButton"
+        android:id="@+id/bookmarkButton"
         android:layout_width="48dp"
         android:layout_height="48dp"
         android:layout_gravity="right"
@@ -46,7 +47,7 @@ android:id="@+id/bookmarkButton"
         tools:ignore="RtlHardcoded" />
 
     <ScrollView
-
+        android:id="@+id/scrollView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:visibility="visible"

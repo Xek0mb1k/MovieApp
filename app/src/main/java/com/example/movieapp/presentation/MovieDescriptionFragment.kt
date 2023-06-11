@@ -103,13 +103,20 @@ class MovieDescriptionFragment : Fragment() {
     }
 
     private fun FragmentMovieDescriptionBinding.disableLoadingScreen() {
-        fragmentMovieDescription.visibility = View.VISIBLE
+        scrollView.visibility = View.VISIBLE
+        bookmarkButton.visibility = View.VISIBLE
+        toBackButton.visibility = View.VISIBLE
+
         progressBar.visibility = View.GONE
     }
 
     private fun enableLoadingScreen() {
-        binding.fragmentMovieDescription.visibility = View.GONE
+        binding.scrollView.visibility = View.GONE
+        binding.bookmarkButton.visibility = View.GONE
+        binding.toBackButton.visibility = View.GONE
+
         binding.progressBar.visibility = View.VISIBLE
+
     }
 
     private fun FragmentMovieDescriptionBinding.setRaitingsScore(movieItemData: Movie) {
